@@ -1,10 +1,11 @@
 ﻿
 namespace Hackathon.Tests.ProviderStubs
 {
-    using Providers;
+
     using KellermanSoftware.CompareNetObjects;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using StubData.Challenge;
+    using BL.Providers;
 
     /// <summary>
     /// Summary description for ProviderTests

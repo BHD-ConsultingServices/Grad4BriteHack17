@@ -1,0 +1,48 @@
+﻿@using Web.Models
+
+
+@model InitiativesModel
+@{
+    ViewBag.Title = "Initiatives";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Pages/Initiatives.js"></script>
+
+    <script>
+        $().ready(function() {
+
+            // site.page.links.homePageLink = "@Url.Action("Index", "Home")";
+
+            console.log("Main Page");
+            var serverData = @Html.Raw(Json.Encode(new
+            {
+                Initiatives = Model?.Initiatives
+            }));
+
+          
+            console.log(serverData);
+           
+            site.page.viewModel = site.createViewModel(serverData);
+            ko.applyBindings(site.page.viewModel);
+        });
+
+    </script>
+}
+
+<div class="jumbotron">
+    <h1>Initiatives</h1>
+    <p class="lead">Below is a list of available causes & inititatives for you</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4" data-bind="foreach: initiatives">
+        <h2 data-bind="text: title"></h2>
+        <p data-bind="text: description"></p>
+    </div>
+</div>
+
+
+

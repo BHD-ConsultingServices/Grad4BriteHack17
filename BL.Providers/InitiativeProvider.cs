@@ -1,20 +1,20 @@
 ﻿
-namespace Hackathon.Providers
+using BL.Providers.Utilities;
+
+namespace BL.Providers
 {
     using System;
-    using Contracts.Initiatives;
     using System.Collections.Generic;
-    using Challange = Contracts.Challenge;
+    using Hackathon.Contracts.Initiatives;
+    using Challange = Hackathon.Contracts.Challenge;
 
     public class InitiativeProvider
     {
         private readonly IInitiativeAdapter _initativeAdapter;
 
-        public InitiativeProvider() { }
-
-        public InitiativeProvider(IInitiativeAdapter initiativeAdapter)
+        public InitiativeProvider(IInitiativeAdapter initiativeAdapter = null)
         {
-            _initativeAdapter = initiativeAdapter;
+            _initativeAdapter = initiativeAdapter ?? DependencyFactory.Resolve<IInitiativeAdapter>();
         }
 
         public Initiative Create(InitiativeRequest request)

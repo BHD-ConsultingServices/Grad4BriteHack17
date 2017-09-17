@@ -1,8 +1,9 @@
 ﻿
-namespace Hackathon.Providers
+namespace BL.Providers
 {
     using System;
-    using Contracts.Challenge;
+    using Hackathon.Contracts.Challenge;
+    using Utilities;
 
     public class ChallengeProvider
     {
@@ -12,7 +13,7 @@ namespace Hackathon.Providers
 
         public ChallengeProvider(IChallengeAdapter adapter)
         {
-            _challengeAdapter = adapter;
+            _challengeAdapter = adapter ?? DependencyFactory.Resolve<IChallengeAdapter>();
         }
 
         public Challenge Create(ChallengeRequest request)

@@ -18,6 +18,7 @@ namespace Hackathon.StubData
             builder.AddUpdateStub();
             builder.AddGetStub();
             builder.AddGetAllChallengesStub();
+            builder.GetAllInitiatives();
 
             StubAdapter = builder.Build();
         }
