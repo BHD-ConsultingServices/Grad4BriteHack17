@@ -1,7 +1,8 @@
-﻿site.page = function () {
+﻿
+site.page = function () {
     var public = {};
 
-    public.Links = {};
+    public.links = {};
     public.objectFactory = {};
     public.viewModel = {};
     public.dataAccess = {};
@@ -13,10 +14,11 @@
 site.page.objectFactory = function() {
     var public = {};
 
-    var createInitiative = function(original) {
-        return {
+    var createInitiative = function (original) {
+     return {
             title: original.Title,
-            description: original.Description
+            description: original.Description,
+            redirect: function () { site.page.dataAccess.RedirectToInitiative(original.Id); }
         };
     }
 
@@ -40,3 +42,17 @@ site.createViewModel = function (serverData) {
 
     return public;
 };
+
+
+site.page.dataAccess = function () {
+    var dal = {};
+
+    dal.RedirectToInitiative = function (id) {
+        var redirectUrl = site.page.links.initiativeUrl.replace("{0}", id);
+
+        console.log(redirectUrl);
+        window.location = redirectUrl;
+    };
+
+    return dal;
+}();

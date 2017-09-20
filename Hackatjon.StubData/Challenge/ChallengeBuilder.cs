@@ -38,7 +38,7 @@ namespace Hackathon.StubData.Challenge
 
         public ChallengeBuilder FavoratePassTime()
         {
-            this.Type = ChallengeType.YesNo;
+            this.Type = ChallengeType.MultipleChoice;
 
             Question = "What passtime activity do you like most?";
             MultiChoiceChallenge = new MultiChoiceChallenge

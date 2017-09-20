@@ -23,11 +23,13 @@ namespace Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+            bundles.Add(new ScriptBundle("~/bundles/commonScripts").Include(
+                "~/Scripts/Slick/slick.js",
                 "~/Scripts/knockout-3.4.2.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Content/commonCss").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/Slick/Slick.css",
                       "~/Content/site.css"));
         }
     }

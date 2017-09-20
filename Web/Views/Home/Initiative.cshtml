@@ -1,0 +1,69 @@
+﻿
+@model Web.Models.InitiativeModel
+@{
+    ViewBag.Title = "Initiative";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/Pages/initiative.js"></script>
+
+    <script>
+        var serverData = @Html.Raw(Json.Encode(new
+                         {
+                             Challenges = Model.Challenges
+                         }));
+
+        $().ready(function() {
+            console.log('Setting the carousel');
+            site.page.viewModel = site.createViewModel(serverData);
+            ko.applyBindings(site.page.viewModel);
+
+            $('.carousel').slick();
+        });
+
+    </script>
+
+}
+
+<h2>@Model.Title</h2>
+<p>@Model.Description</p>
+
+<p><i>Completed <span data-bind="text: numberOfCompleted"></span> out of <span data-bind="text: numberOfQuestions"></span> challenges.</i></p>
+
+<div class="carousel">
+    <!-- ko foreach: challenges -->
+    <div>
+        <p data-bind="text: question"></p>
+        
+        <div style="display: none" data-bind="visible: type == challengeTypeEnum.YesNo">
+            <select data-bind="options: site.page.viewModel.yesNoOptions(), optionsValue: 'value' , optionsText: 'label', value: answer">
+            </select>
+        </div>
+
+        <div style="display: none" data-bind="visible: type == challengeTypeEnum.MultiChoice">
+            <table>
+                <tr>
+                    <td><input type="radio" name="option" value="A" data-bind="checked: answer()"/></td>
+                    <td><span data-bind="text: optionA" ></span></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="option" value="B" data-bind="checked: answer()"/></td>
+                    <td><span data-bind="text: optionB"></span></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="option" value="C" data-bind="checked: answer()" /></td>
+                    <td><span data-bind="text: optionC"></span></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="option" value="D" data-bind="checked: answer()" /></td>
+                    <td><span data-bind="text: optionD"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+ 
+

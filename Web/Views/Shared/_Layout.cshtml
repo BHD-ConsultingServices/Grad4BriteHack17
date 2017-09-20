@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Grad4Brite Hackathon 2017</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/commonCss")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("header", required: false)
 </head>
@@ -21,7 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Initiatives", "Initiatives", "Home")</li>
+                    <li>@Html.ActionLink("Initiatives", "InitiativeList", "Home")</li>
                 </ul>
             </div>
         </div>
@@ -36,7 +36,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/commonScripts")
     
     <script src="~/Scripts/Common.js"></script>
 
