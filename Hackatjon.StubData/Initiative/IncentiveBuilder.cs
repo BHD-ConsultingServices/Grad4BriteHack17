@@ -27,7 +27,7 @@ namespace Hackathon.StubData.Initiative
 
         public InitiativeBuilder SbcaVolenteering()
         {
-            Title = "SBCA Volenteering";
+            Title = "SPCA Volunteering";
             Description = "Spend a day feeding, cleaning and caring for the animals at the SBCA";
 
             return this;

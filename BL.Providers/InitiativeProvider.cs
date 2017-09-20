@@ -1,12 +1,12 @@
 ﻿
-using BL.Providers.Utilities;
-
 namespace BL.Providers
 {
     using System;
     using System.Collections.Generic;
     using Hackathon.Contracts.Initiatives;
     using Challange = Hackathon.Contracts.Challenge;
+    using Utilities;
+    using Hackathon.Contracts;
 
     public class InitiativeProvider
     {
@@ -47,6 +47,18 @@ namespace BL.Providers
         public IEnumerable<Initiative> GetAllInitiatives()
         {
             return _initativeAdapter.GetAllInitiatives();
+        }
+
+        public Response Register(RegistrationRequest request)
+        {
+            //TODO: Check if Successfull
+
+            //TODO: Persist to database
+
+            return new Response
+            {
+                IsSuccess = true
+            };
         }
     }
 }

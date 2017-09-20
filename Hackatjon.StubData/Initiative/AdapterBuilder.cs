@@ -57,6 +57,9 @@ namespace Hackathon.StubData.Initiative
                 },
                 {
                     new ChallengeBuilder().FavoratePassTime().Build()
+                },
+                {
+                    new ChallengeBuilder().HowDoYouStopAnAngryDog().Build()
                 }
             };
 

@@ -22,7 +22,7 @@ site.ajax = function () {
                 var redirectUrl = resultObject.RedirectUrl;
 
                 if (typeof (redirectUrl) !== "undefined") {
-                    Console.info("Server Exception. Redirecting to error page.");
+                    console.info("Server Exception. Redirecting to error page.");
                     window.location = redirectUrl;
                     return;
                 }
@@ -30,18 +30,18 @@ site.ajax = function () {
             }
         }
 
-        Console.error("Ajax error occurred: Ready State [" + readyState + "] Status [" + status + "] Message [" + ((message != undefined) ? message : "None") + "]");
+        console.error("Ajax error occurred: Ready State [" + readyState + "] Status [" + status + "] Message [" + ((message != undefined) ? message : "None") + "]");
     };
 
     var generateSuccessRouteHandler = function (successCallback, url) {
-        Console.info("Successfull Ajax call. Destination = [" + ((url != undefined) ? url : "None") + "]");
+        console.info("Successfull Ajax call. Destination = [" + ((url != undefined) ? url : "None") + "]");
         return successCallback;
     };
 
     var generateFailureRouteHandler = function (failureCallback, url) {
         var failureHandler = ((failureCallback == undefined) ? defaultErrorHandler : failureCallback);
 
-        Console.info("Ajax call failed. Destination = [" + ((url != undefined) ? url : "None") + "]");
+        console.info("Ajax call failed. Destination = [" + ((url != undefined) ? url : "None") + "]");
         return failureHandler;
     };
 

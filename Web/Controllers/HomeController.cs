@@ -1,4 +1,6 @@
 ﻿
+using Hackathon.Contracts;
+
 namespace Web.Controllers
 {
     using System.Web.Mvc;
@@ -38,12 +40,23 @@ namespace Web.Controllers
             
             var model = new InitiativeModel
             {
+                Id = intiative.Id,
                 Title = intiative.Title,
                 Description = intiative.Description,
                 Challenges = challenges
             };
 
             return View(model);
+        }
+
+        public JsonResult Register(RegistrationRequest requests)
+        {
+            var provider = new InitiativeProvider();
+
+
+            var response = provider.Register(requests);
+
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

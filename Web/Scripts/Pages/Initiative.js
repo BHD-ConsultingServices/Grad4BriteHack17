@@ -11,13 +11,63 @@ site.page = function () {
     return public;
 }();
 
+site.page.dataAccess = function () {
+    var dal = {};
+
+    dal.submitAnswers = function (answer, successCallback) {
+        console.log(answer);
+
+        site.ajax.submitAjaxGetJson(site.page.links.registerUrl, answer, successCallback);
+    };
+
+    return dal;
+}();
 
 site.page.objectFactory = function () {
     var public = {};
 
+    public.getRegisterData = function (initiativeId, email, answers) {
+        var request = {
+            InitiativeId: initiativeId,
+            Email: email,
+            Answers: answers
+        };
+
+        return request;
+    }
+
+    var  convertQuestionToAnswer = function(original) {
+        var answer = {
+            ChallengeId: original.id,
+            ChallengeType: original.type,
+            YesNoAnswer: original.answerYesNo(),
+            MultiAnswer: original.answerMulti()
+        }
+        
+        return answer;
+    }
+
+    public.convertQuestionsToAnswers = function (originals) {
+        return $.map(originals, convertQuestionToAnswer);
+    }
+
+    var getAnsweredQuestions = function () {
+        var counter = 0;
+
+        $.each(site.page.viewModel.challenges(), function (key, value) {
+            if ((value.answerYesNo() != undefined && value.answerYesNo() !== "")
+                || (value.answerMulti() != undefined && value.answerMulti() !== "")) {
+                counter++;
+            }
+        });
+
+        return counter;
+    }
+
     var createChallenge = function (original) {
         var converted = {};
 
+        converted.id = original.Id;
         converted.question = original.Question;
         converted.type = original.Type;
 
@@ -28,18 +78,14 @@ site.page.objectFactory = function () {
         converted.optionC = hasMulti ? original.MultiChoiceChallenge.OptionC : "";
         converted.optionD = hasMulti ? original.MultiChoiceChallenge.OptionD : "";
 
-        converted.answer = ko.observable(undefined);
+        converted.answerYesNo = ko.observable(undefined);
+        converted.answerYesNo.subscribe(function () {
+            site.page.viewModel.numberOfCompleted(getAnsweredQuestions());
+        }, this);
 
-        converted.answer.subscribe(function () {
-            var counter = 0;
-
-            $.each(site.page.viewModel.challenges(), function (key, value) {
-                if (value.answer() != undefined && value.answer() !== "") {
-                    counter++;
-                }
-            });
-
-            site.page.viewModel.numberOfCompleted(counter);
+        converted.answerMulti = ko.observable(undefined);
+        converted.answerMulti.subscribe(function () {
+            site.page.viewModel.numberOfCompleted(getAnsweredQuestions());
         }, this);
 
         return converted;
@@ -60,26 +106,50 @@ site.createViewModel = function (serverData) {
     console.log(serverData);
 
     var challengeData = site.page.objectFactory.createChallenges(serverData.Challenges);
+    console.log(challengeData);
 
+    public.initiativeId = serverData.InitiativeId;
+    public.errorMessage = ko.observable("");
+    public.successMessage = ko.observable("");
+    public.email = ko.observable("");
     public.yesNoOptions = ko.observableArray([{ label: "Undefined", value: "" }, { label: "Yes", value: "Yes" }, { label: "No", value: "No" }]);
     public.challenges = ko.observableArray(challengeData);
 
     public.numberOfCompleted = ko.observable(0);
+    public.isCompleted = ko.observable(false);
 
     public.numberOfQuestions = ko.computed(function () {
         return public.challenges().length;
     });
 
+    var onRegisterCallback = function (serverData) {
+        var response = JSON.parse(serverData);
+        console.log(response);
+
+        if (response.IsSuccess) {
+            public.successMessage("You have successfully submitted your registration.");
+        } else {
+            public.errorMessage("You application has not been accepted.");
+        }
+
+        public.isCompleted(true);
+    };
+
+    public.register = function () {
+        if (public.email() === "") {
+            public.errorMessage("Must provide email");
+            return;
+
+        } else {
+            public.errorMessage("");
+        }
+
+        var answers = site.page.objectFactory.convertQuestionsToAnswers(public.challenges());
+        var registration = site.page.objectFactory.getRegisterData(public.initiativeId, public.email(), answers);
+        site.page.dataAccess.submitAnswers(registration, onRegisterCallback);
+    }
+
     return public;
 };
 
 
-site.page.dataAccess = function () {
-    var dal = {};
-
-    dal.SubmitAnswers = function (challenge) {
-        console.log(challenge);
-    };
-
-    return dal;
-}();

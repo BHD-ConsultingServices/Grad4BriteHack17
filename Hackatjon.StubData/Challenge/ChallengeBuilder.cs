@@ -1,14 +1,18 @@
 ﻿
-using System;
-
 namespace Hackathon.StubData.Challenge
 {
     using Contracts.Challenge;
     using Contracts;
     using Contracts.Challenge.Types;
+    using System;
 
     public class ChallengeBuilder : Challenge
     {
+        public ChallengeBuilder()
+        {
+            Id = Guid.NewGuid();
+        }
+
         public ChallengeBuilder UpdateId(Guid id)
         {
             Id = id;
@@ -44,7 +48,7 @@ namespace Hackathon.StubData.Challenge
             MultiChoiceChallenge = new MultiChoiceChallenge
             {
                 ExpectedAnswer = 'b',
-                OptionA = "Talk a walk in the park",
+                OptionA = "Take a walk in the park",
                 OptionB = "Visit a petshop",
                 OptionC = "Watch a movie",
                 OptionD = "Going out clubbing"
@@ -53,14 +57,25 @@ namespace Hackathon.StubData.Challenge
             return this;
         }
 
-        public ChallengeRequest BuildRequest()
+        public ChallengeBuilder HowDoYouStopAnAngryDog()
         {
+            this.Type = ChallengeType.MultipleChoice;
+
+            Question = "How do you calm down an aggressive dog?";
+            MultiChoiceChallenge = new MultiChoiceChallenge
+            {
+                ExpectedAnswer = 'b',
+                OptionA = "Talk to it in soothing voice",
+                OptionB = "Spray the dog with water",
+                OptionC = "Bite it on the ear to show dominance",
+                OptionD = "Address the dog in a stern deep voice"
+            };
+
             return this;
         }
 
-        public Challenge Build()
-        {
-            return this;
-        }
+        public ChallengeRequest BuildRequest() => this;
+
+        public Challenge Build() => this;
     }
 }

@@ -90,7 +90,7 @@ namespace Hackathon.Tests.ProviderStubs
   
             // Assert
             Assert.IsNotNull(response);
-            Assert.IsTrue(response.Count() == 2, "Did not return expected 2 challenges");
+            Assert.IsTrue(response.Count() == 3, "Did not return expected 2 challenges");
         }
 
         [TestMethod]

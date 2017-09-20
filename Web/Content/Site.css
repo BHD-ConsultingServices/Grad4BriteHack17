@@ -29,7 +29,6 @@ textarea {
     margin: 5px 5px;
 }
 
-
 .cards {
     margin: 0;
     padding: 0;
@@ -47,4 +46,20 @@ textarea {
 
 .card:hover {
     background-color: lightgray;
+}
+
+.errorText {
+    color: red;
+    font-style: italic;
+    font-size: 0.7em;
+}
+
+.successText {
+    color: green;
+    font-style: italic;
+    font-size: 0.7em;
+}
+
+.wrapper {
+    max-width: 500px;
 }
