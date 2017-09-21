@@ -24,8 +24,9 @@ Brite4Grad Hackathon 2017
 _Conceptual Architecture Overview_
 <img alt="Architecture Overview" src="https://raw.githubusercontent.com/BHD-ConsultingServices/Grad4BriteHack17/master/Web/Content/Images/ConceptualArchitecture.png" width="700">
 
-
-
+## Important Places
+* Swapping (DI) config between stubbed adapters and the real adapters going to the database - <Unity> Configuration in Web.config
+* Run the unit tests to see the available operations on DAL and Provider level
 
 
 
