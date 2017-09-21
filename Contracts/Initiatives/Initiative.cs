@@ -6,5 +6,7 @@ namespace Hackathon.Contracts.Initiatives
     public class Initiative : InitiativeRequest
     {
         public Guid Id { get; set; }
+
+        public decimal Passrate { get; set; }
     }
 }

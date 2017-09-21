@@ -5,32 +5,56 @@ namespace Hackathon.Adapters
     using Contracts.Initiatives;
     using Challenge = Contracts.Challenge;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class InitiativeAdapter : IInitiativeAdapter
     {
-        public Initiative Create(Initiative request)
+        private InitiativesEntities context = new InitiativesEntities();
+
+        public Contracts.Initiatives.Initiative Create(Contracts.Initiatives.Initiative request)
         {
-            throw new NotImplementedException();
+            var entity = new Initiative
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title,
+                Description = request.Description,
+                PassRate = request.Passrate
+            };
+
+            context.Initiatives.Add(entity);
+            context.SaveChanges();
+            var initiative = entity.Map();
+            return initiative;
         }
 
-        public Initiative Update(Guid id, IInitiativeUpdatable initative)
+        public Contracts.Initiatives.Initiative Get(Guid id)
         {
-            throw new NotImplementedException();
+            var entity = context.Initiatives.Single(x => x.Id == id);
+            var initiative = entity.Map();
+            return initiative;
         }
 
-        public Initiative Get(Guid id)
+        public IEnumerable<Contracts.Challenge.Challenge> GetAllChallenges(Guid initiativeId)
         {
-            throw new NotImplementedException();
+            var entities = context.Challenges;
+            var challenges = entities.Map();
+            return challenges;
         }
 
-        public IEnumerable<Challenge.Challenge> GetAllChallenges(Guid initiativeId)
+        public IEnumerable<Contracts.Initiatives.Initiative> GetAllInitiatives()
         {
-            throw new NotImplementedException();
+            var entities = context.Initiatives;
+            var initiatives = entities.Map();
+            return initiatives;
         }
 
-        public IEnumerable<Initiative> GetAllInitiatives()
+        public Contracts.Initiatives.Initiative Update(Guid id, IInitiativeUpdatable initative)
         {
-            throw new NotImplementedException();
+            var entity = context.Initiatives.Single(x => x.Id == id);
+            entity.Title = initative.Description;
+            context.SaveChanges();
+            var initiative = entity.Map();
+            return initiative;
         }
     }
 }
