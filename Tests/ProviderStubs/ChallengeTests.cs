@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Hackathon.Tests.ProviderStubs
 {
 
@@ -29,7 +31,7 @@ namespace Hackathon.Tests.ProviderStubs
             var provider = new ChallengeProvider(mokAdapter);
 
             // Act
-            var response = provider.Create(requestBuilder.BuildRequest());
+            var response = provider.Create(Guid.NewGuid(), requestBuilder.BuildRequest());
             var expected = requestBuilder.UpdateId(response.Id).Build();
 
             // Assert

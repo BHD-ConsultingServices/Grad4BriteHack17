@@ -56,10 +56,6 @@
       <Project>{04d1decb-7cf8-4c4e-a2a4-4623f76cbe62}</Project>
       <Name>Hackathon.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL.Adapters\Hackathon.Adapters.csproj">
-      <Project>{02cff6c1-62e3-40b4-bd98-29d88291785b}</Project>
-      <Name>Hackathon.Adapters</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -18,8 +18,8 @@ namespace Hackathon.StubData.Challenge
         {
             var stubResult = response ?? new ChallengeBuilder().DoYouLikeDogs().Build();
 
-            _adapter.Expect(e => e.Create(Arg<Challenge>.Is.Anything)).Return(stubResult);
-            _adapter.Stub(e => e.Create(Arg<Challenge>.Is.Anything)).Return(stubResult);
+            _adapter.Expect(e => e.Create(Arg<Guid>.Is.Anything, Arg<Challenge>.Is.Anything)).Return(stubResult);
+            _adapter.Stub(e => e.Create(Arg<Guid>.Is.Anything, Arg<Challenge>.Is.Anything)).Return(stubResult);
 
             return this;
         }

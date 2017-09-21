@@ -1,10 +1,7 @@
 ﻿
-using System.Linq;
-
 namespace Hackathon.Tests.AdaptersTransactional
 {
     using System;
-    using Adapters;
     using StubData.Initiative;
     using KellermanSoftware.CompareNetObjects;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,6 +19,9 @@ namespace Hackathon.Tests.AdaptersTransactional
         [TestMethod]
         public void CreateInitiativeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var requestBuilder = new InitiativeBuilder().SbcaVolenteering();
             var mokAdapter = new InitiativeAdapter();
@@ -35,11 +35,15 @@ namespace Hackathon.Tests.AdaptersTransactional
             var compareDetails = Comparer.Compare(expected, response);
             compareDetails.DisplayDifferences();
             Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed");
+             */
         }
 
         [TestMethod]
         public void UpdateInitiativeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var requestBuilder = new InitiativeBuilder().SbcaVolenteering();
             var mokAdapter = new InitiativeAdapter();
@@ -53,11 +57,15 @@ namespace Hackathon.Tests.AdaptersTransactional
             var compareDetails = Comparer.Compare(expected, response);
             compareDetails.DisplayDifferences();
             Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed");
+            */
         }
 
         [TestMethod]
         public void GetInitiativeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var requestBuilder = new InitiativeBuilder().SbcaVolenteering();
             var mokAdapter = new InitiativeAdapter();
@@ -70,12 +78,15 @@ namespace Hackathon.Tests.AdaptersTransactional
             Assert.IsNotNull(response);
             var compareDetails = Comparer.Compare(expected, response);
             compareDetails.DisplayDifferences();
-            Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed");
+            Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed"); */
         }
 
         [TestMethod]
         public void GetAllInitiativesAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var mokAdapter = new InitiativeAdapter();
 
@@ -84,12 +95,15 @@ namespace Hackathon.Tests.AdaptersTransactional
 
             // Assert
             Assert.IsNotNull(response);
-            Assert.IsTrue(response.Count() == 2, "Did not retrieve the expcted 2 stubbed intitatives");
+            Assert.IsTrue(response.Count() == 2, "Did not retrieve the expcted 2 stubbed intitatives"); */
         }
 
         [TestMethod]
         public void GetAllChallengesForInittiativeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var mokAdapter = new InitiativeAdapter();
 
@@ -99,6 +113,7 @@ namespace Hackathon.Tests.AdaptersTransactional
             // Assert
             Assert.IsNotNull(response);
             Assert.IsTrue(response.Count() == 2, "Did not retrieve the expcted 2 stubbed challenges");
+            */
         }
 
     }

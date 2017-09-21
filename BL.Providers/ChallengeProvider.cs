@@ -16,7 +16,7 @@ namespace BL.Providers
             _challengeAdapter = adapter ?? DependencyFactory.Resolve<IChallengeAdapter>();
         }
 
-        public Challenge Create(ChallengeRequest request)
+        public Challenge Create(Guid initiativeId, ChallengeRequest request)
         {
             var challenge = new Challenge
             {
@@ -28,7 +28,7 @@ namespace BL.Providers
                 Type = request.Type
             };
 
-            return _challengeAdapter.Create(challenge);
+            return _challengeAdapter.Create(initiativeId, challenge);
         }
 
         public Challenge Update(Guid challengeId, IChallengeUpdatable request)

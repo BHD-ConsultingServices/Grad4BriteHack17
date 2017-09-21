@@ -25,9 +25,9 @@ namespace Hackathon.StubData
             return StubAdapter.Get(id);
         }
 
-        public Contracts.Challenge.Challenge Create(Contracts.Challenge.Challenge request)
+        public Contracts.Challenge.Challenge Create(Guid initiativeId, Contracts.Challenge.Challenge request)
         {
-            return StubAdapter.Create(request);
+            return StubAdapter.Create(initiativeId, request);
         }
 
         public Contracts.Challenge.Challenge Update(Guid challengeId, IChallengeUpdatable request)

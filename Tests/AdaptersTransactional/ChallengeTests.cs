@@ -2,7 +2,6 @@
 namespace Hackathon.Tests.AdaptersTransactional
 {
     using System;
-    using Adapters;
     using StubData.Challenge;
     using KellermanSoftware.CompareNetObjects;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,6 +19,9 @@ namespace Hackathon.Tests.AdaptersTransactional
         [TestMethod]
         public void CreateChallengeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var requestBuilder = new ChallengeBuilder().FavoratePassTime();
             var mokAdapter = new ChallengeAdapter();
@@ -33,11 +35,15 @@ namespace Hackathon.Tests.AdaptersTransactional
             var compareDetails = Comparer.Compare(expected, response);
             compareDetails.DisplayDifferences();
             Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed");
+            */
         }
 
         [TestMethod]
         public void UpdateChallengeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var requestBuilder = new ChallengeBuilder().FavoratePassTime();
             var mokAdapter = new ChallengeAdapter();
@@ -51,11 +57,15 @@ namespace Hackathon.Tests.AdaptersTransactional
             var compareDetails = Comparer.Compare(expected, response);
             compareDetails.DisplayDifferences();
             Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed");
+            */
         }
 
         [TestMethod]
         public void GetChallengeAdapter_Success()
         {
+            throw new NotImplementedException();
+
+            /*
             // Arrange
             var requestBuilder = new ChallengeBuilder().FavoratePassTime();
             var mokAdapter = new ChallengeAdapter();
@@ -69,6 +79,7 @@ namespace Hackathon.Tests.AdaptersTransactional
             var compareDetails = Comparer.Compare(expected, response);
             compareDetails.DisplayDifferences();
             Assert.IsTrue(compareDetails.AreEqual, "The initative comparison failed");
+            */
         }
     }
 }
