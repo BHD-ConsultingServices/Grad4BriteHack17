@@ -1,8 +1,7 @@
 ﻿
-using Hackathon.Contracts;
-
 namespace Web.Controllers
 {
+    using Hackathon.Contracts.Registration;
     using System.Web.Mvc;
     using System;
     using BL.Providers;
@@ -51,8 +50,7 @@ namespace Web.Controllers
 
         public JsonResult Register(RegistrationRequest requests)
         {
-            var provider = new InitiativeProvider();
-
+            var provider = new RegistrationProvider();
 
             var response = provider.Register(requests);
 

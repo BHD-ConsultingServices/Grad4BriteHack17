@@ -1,9 +1,9 @@
 ﻿
-namespace Hackathon.Contracts
-{
-    using System;
-    using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
+namespace Hackathon.Contracts.Registration
+{
     public class RegistrationRequest
 	{
         public Guid InitiativeId { get; set; }

@@ -48,17 +48,5 @@ namespace BL.Providers
         {
             return _initativeAdapter.GetAllInitiatives();
         }
-
-        public Response Register(RegistrationRequest request)
-        {
-            //TODO: Check if Successfull
-
-            //TODO: Persist to database
-
-            return new Response
-            {
-                IsSuccess = true
-            };
-        }
     }
 }
