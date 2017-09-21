@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InitiativesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChallengeMultipleChoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExpectedAnswer" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="ChallengeMultipleChoiceItems">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ChallengeMultipleChoiceId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Challenges">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InitiativeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ChallengeTypeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Question" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ChallengeYesNoId" Type="uniqueidentifier" />
+          <Property Name="ChallengeMultipleChoiceId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="ChallengeTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CorrelationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChallengeYesNo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExpectedAnswer" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Initiatives">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PassRate" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistrationAttemptAnswers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ChallengeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RegistrationAttemptId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AnswerYesNo" Type="int" />
+          <Property Name="AnswerMultipleChoice" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="RegistrationAttempts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="HasSucceeded" Type="bit" Nullable="false" />
+          <Property Name="InitiativeId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice">
+          <End Role="ChallengeMultipleChoice" Type="Self.ChallengeMultipleChoice" Multiplicity="1" />
+          <End Role="ChallengeMultipleChoiceItems" Type="Self.ChallengeMultipleChoiceItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeMultipleChoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChallengeMultipleChoiceItems">
+              <PropertyRef Name="ChallengeMultipleChoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_ChallengeMultipleChoice">
+          <End Role="ChallengeMultipleChoice" Type="Self.ChallengeMultipleChoice" Multiplicity="0..1" />
+          <End Role="Challenges" Type="Self.Challenges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeMultipleChoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="ChallengeMultipleChoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_ChallengeTypes">
+          <End Role="ChallengeTypes" Type="Self.ChallengeTypes" Multiplicity="1" />
+          <End Role="Challenges" Type="Self.Challenges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="ChallengeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_ChallengeYesNo">
+          <End Role="ChallengeYesNo" Type="Self.ChallengeYesNo" Multiplicity="0..1" />
+          <End Role="Challenges" Type="Self.Challenges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeYesNo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="ChallengeYesNoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_Initiatives">
+          <End Role="Initiatives" Type="Self.Initiatives" Multiplicity="1" />
+          <End Role="Challenges" Type="Self.Challenges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Initiatives">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="InitiativeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistrationAttemptQuestions_Challenges">
+          <End Role="Challenges" Type="Self.Challenges" Multiplicity="1" />
+          <End Role="RegistrationAttemptAnswers" Type="Self.RegistrationAttemptAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Challenges">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistrationAttemptAnswers">
+              <PropertyRef Name="ChallengeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistrationAttemptQuestions_RegistrationAttempts">
+          <End Role="RegistrationAttempts" Type="Self.RegistrationAttempts" Multiplicity="1" />
+          <End Role="RegistrationAttemptAnswers" Type="Self.RegistrationAttemptAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistrationAttempts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistrationAttemptAnswers">
+              <PropertyRef Name="RegistrationAttemptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistrationAttempts_Initiatives">
+          <End Role="Initiatives" Type="Self.Initiatives" Multiplicity="1" />
+          <End Role="RegistrationAttempts" Type="Self.RegistrationAttempts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Initiatives">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistrationAttempts">
+              <PropertyRef Name="InitiativeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InitiativesModelStoreContainer">
+          <EntitySet Name="ChallengeMultipleChoice" EntityType="Self.ChallengeMultipleChoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChallengeMultipleChoiceItems" EntityType="Self.ChallengeMultipleChoiceItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Challenges" EntityType="Self.Challenges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChallengeTypes" EntityType="Self.ChallengeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChallengeYesNo" EntityType="Self.ChallengeYesNo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Initiatives" EntityType="Self.Initiatives" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationAttemptAnswers" EntityType="Self.RegistrationAttemptAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationAttempts" EntityType="Self.RegistrationAttempts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice" Association="Self.FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice">
+            <End Role="ChallengeMultipleChoice" EntitySet="ChallengeMultipleChoice" />
+            <End Role="ChallengeMultipleChoiceItems" EntitySet="ChallengeMultipleChoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_ChallengeMultipleChoice" Association="Self.FK_Challenges_ChallengeMultipleChoice">
+            <End Role="ChallengeMultipleChoice" EntitySet="ChallengeMultipleChoice" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_ChallengeTypes" Association="Self.FK_Challenges_ChallengeTypes">
+            <End Role="ChallengeTypes" EntitySet="ChallengeTypes" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_ChallengeYesNo" Association="Self.FK_Challenges_ChallengeYesNo">
+            <End Role="ChallengeYesNo" EntitySet="ChallengeYesNo" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_Initiatives" Association="Self.FK_Challenges_Initiatives">
+            <End Role="Initiatives" EntitySet="Initiatives" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistrationAttemptQuestions_Challenges" Association="Self.FK_RegistrationAttemptQuestions_Challenges">
+            <End Role="Challenges" EntitySet="Challenges" />
+            <End Role="RegistrationAttemptAnswers" EntitySet="RegistrationAttemptAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistrationAttemptQuestions_RegistrationAttempts" Association="Self.FK_RegistrationAttemptQuestions_RegistrationAttempts">
+            <End Role="RegistrationAttempts" EntitySet="RegistrationAttempts" />
+            <End Role="RegistrationAttemptAnswers" EntitySet="RegistrationAttemptAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistrationAttempts_Initiatives" Association="Self.FK_RegistrationAttempts_Initiatives">
+            <End Role="Initiatives" EntitySet="Initiatives" />
+            <End Role="RegistrationAttempts" EntitySet="RegistrationAttempts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InitiativesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChallengeMultipleChoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ExpectedAnswer" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ChallengeMultipleChoiceItems" Relationship="Self.FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice" FromRole="ChallengeMultipleChoice" ToRole="ChallengeMultipleChoiceItems" />
+          <NavigationProperty Name="Challenges" Relationship="Self.FK_Challenges_ChallengeMultipleChoice" FromRole="ChallengeMultipleChoice" ToRole="Challenges" />
+        </EntityType>
+        <EntityType Name="ChallengeMultipleChoiceItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ChallengeMultipleChoiceId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="ChallengeMultipleChoice" Relationship="Self.FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice" FromRole="ChallengeMultipleChoiceItems" ToRole="ChallengeMultipleChoice" />
+        </EntityType>
+        <EntityType Name="Challenge">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="InitiativeId" Type="Guid" Nullable="false" />
+          <Property Name="ChallengeTypeId" Type="Guid" Nullable="false" />
+          <Property Name="Question" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ChallengeYesNoId" Type="Guid" />
+          <Property Name="ChallengeMultipleChoiceId" Type="Guid" />
+          <NavigationProperty Name="ChallengeMultipleChoice" Relationship="Self.FK_Challenges_ChallengeMultipleChoice" FromRole="Challenges" ToRole="ChallengeMultipleChoice" />
+          <NavigationProperty Name="ChallengeType" Relationship="Self.FK_Challenges_ChallengeTypes" FromRole="Challenges" ToRole="ChallengeTypes" />
+          <NavigationProperty Name="ChallengeYesNo" Relationship="Self.FK_Challenges_ChallengeYesNo" FromRole="Challenges" ToRole="ChallengeYesNo" />
+          <NavigationProperty Name="Initiative" Relationship="Self.FK_Challenges_Initiatives" FromRole="Challenges" ToRole="Initiatives" />
+          <NavigationProperty Name="RegistrationAttemptAnswers" Relationship="Self.FK_RegistrationAttemptQuestions_Challenges" FromRole="Challenges" ToRole="RegistrationAttemptAnswers" />
+        </EntityType>
+        <EntityType Name="ChallengeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CorrelationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Challenges" Relationship="Self.FK_Challenges_ChallengeTypes" FromRole="ChallengeTypes" ToRole="Challenges" />
+        </EntityType>
+        <EntityType Name="ChallengeYesNo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ExpectedAnswer" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Challenges" Relationship="Self.FK_Challenges_ChallengeYesNo" FromRole="ChallengeYesNo" ToRole="Challenges" />
+        </EntityType>
+        <EntityType Name="Initiative">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PassRate" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Challenges" Relationship="Self.FK_Challenges_Initiatives" FromRole="Initiatives" ToRole="Challenges" />
+          <NavigationProperty Name="RegistrationAttempts" Relationship="Self.FK_RegistrationAttempts_Initiatives" FromRole="Initiatives" ToRole="RegistrationAttempts" />
+        </EntityType>
+        <EntityType Name="RegistrationAttemptAnswer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ChallengeId" Type="Guid" Nullable="false" />
+          <Property Name="RegistrationAttemptId" Type="Guid" Nullable="false" />
+          <Property Name="AnswerYesNo" Type="Int32" />
+          <Property Name="AnswerMultipleChoice" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Challenge" Relationship="Self.FK_RegistrationAttemptQuestions_Challenges" FromRole="RegistrationAttemptAnswers" ToRole="Challenges" />
+          <NavigationProperty Name="RegistrationAttempt" Relationship="Self.FK_RegistrationAttemptQuestions_RegistrationAttempts" FromRole="RegistrationAttemptAnswers" ToRole="RegistrationAttempts" />
+        </EntityType>
+        <EntityType Name="RegistrationAttempt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HasSucceeded" Type="Boolean" Nullable="false" />
+          <Property Name="InitiativeId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Initiative" Relationship="Self.FK_RegistrationAttempts_Initiatives" FromRole="RegistrationAttempts" ToRole="Initiatives" />
+          <NavigationProperty Name="RegistrationAttemptAnswers" Relationship="Self.FK_RegistrationAttemptQuestions_RegistrationAttempts" FromRole="RegistrationAttempts" ToRole="RegistrationAttemptAnswers" />
+        </EntityType>
+        <Association Name="FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice">
+          <End Role="ChallengeMultipleChoice" Type="Self.ChallengeMultipleChoice" Multiplicity="1" />
+          <End Role="ChallengeMultipleChoiceItems" Type="Self.ChallengeMultipleChoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeMultipleChoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChallengeMultipleChoiceItems">
+              <PropertyRef Name="ChallengeMultipleChoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_ChallengeMultipleChoice">
+          <End Role="ChallengeMultipleChoice" Type="Self.ChallengeMultipleChoice" Multiplicity="0..1" />
+          <End Role="Challenges" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeMultipleChoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="ChallengeMultipleChoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_ChallengeTypes">
+          <End Role="ChallengeTypes" Type="Self.ChallengeType" Multiplicity="1" />
+          <End Role="Challenges" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="ChallengeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_ChallengeYesNo">
+          <End Role="ChallengeYesNo" Type="Self.ChallengeYesNo" Multiplicity="0..1" />
+          <End Role="Challenges" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChallengeYesNo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="ChallengeYesNoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Challenges_Initiatives">
+          <End Role="Initiatives" Type="Self.Initiative" Multiplicity="1" />
+          <End Role="Challenges" Type="Self.Challenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Initiatives">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Challenges">
+              <PropertyRef Name="InitiativeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistrationAttemptQuestions_Challenges">
+          <End Role="Challenges" Type="Self.Challenge" Multiplicity="1" />
+          <End Role="RegistrationAttemptAnswers" Type="Self.RegistrationAttemptAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Challenges">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistrationAttemptAnswers">
+              <PropertyRef Name="ChallengeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistrationAttempts_Initiatives">
+          <End Role="Initiatives" Type="Self.Initiative" Multiplicity="1" />
+          <End Role="RegistrationAttempts" Type="Self.RegistrationAttempt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Initiatives">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistrationAttempts">
+              <PropertyRef Name="InitiativeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegistrationAttemptQuestions_RegistrationAttempts">
+          <End Role="RegistrationAttempts" Type="Self.RegistrationAttempt" Multiplicity="1" />
+          <End Role="RegistrationAttemptAnswers" Type="Self.RegistrationAttemptAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistrationAttempts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RegistrationAttemptAnswers">
+              <PropertyRef Name="RegistrationAttemptId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InitiativesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChallengeMultipleChoices" EntityType="Self.ChallengeMultipleChoice" />
+          <EntitySet Name="ChallengeMultipleChoiceItems" EntityType="Self.ChallengeMultipleChoiceItem" />
+          <EntitySet Name="Challenges" EntityType="Self.Challenge" />
+          <EntitySet Name="ChallengeTypes" EntityType="Self.ChallengeType" />
+          <EntitySet Name="ChallengeYesNoes" EntityType="Self.ChallengeYesNo" />
+          <EntitySet Name="Initiatives" EntityType="Self.Initiative" />
+          <EntitySet Name="RegistrationAttemptAnswers" EntityType="Self.RegistrationAttemptAnswer" />
+          <EntitySet Name="RegistrationAttempts" EntityType="Self.RegistrationAttempt" />
+          <AssociationSet Name="FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice" Association="Self.FK_ChallengeMultipleChoiceItems_ChallengeMultipleChoice">
+            <End Role="ChallengeMultipleChoice" EntitySet="ChallengeMultipleChoices" />
+            <End Role="ChallengeMultipleChoiceItems" EntitySet="ChallengeMultipleChoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_ChallengeMultipleChoice" Association="Self.FK_Challenges_ChallengeMultipleChoice">
+            <End Role="ChallengeMultipleChoice" EntitySet="ChallengeMultipleChoices" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_ChallengeTypes" Association="Self.FK_Challenges_ChallengeTypes">
+            <End Role="ChallengeTypes" EntitySet="ChallengeTypes" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_ChallengeYesNo" Association="Self.FK_Challenges_ChallengeYesNo">
+            <End Role="ChallengeYesNo" EntitySet="ChallengeYesNoes" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Challenges_Initiatives" Association="Self.FK_Challenges_Initiatives">
+            <End Role="Initiatives" EntitySet="Initiatives" />
+            <End Role="Challenges" EntitySet="Challenges" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistrationAttemptQuestions_Challenges" Association="Self.FK_RegistrationAttemptQuestions_Challenges">
+            <End Role="Challenges" EntitySet="Challenges" />
+            <End Role="RegistrationAttemptAnswers" EntitySet="RegistrationAttemptAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistrationAttempts_Initiatives" Association="Self.FK_RegistrationAttempts_Initiatives">
+            <End Role="Initiatives" EntitySet="Initiatives" />
+            <End Role="RegistrationAttempts" EntitySet="RegistrationAttempts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegistrationAttemptQuestions_RegistrationAttempts" Association="Self.FK_RegistrationAttemptQuestions_RegistrationAttempts">
+            <End Role="RegistrationAttempts" EntitySet="RegistrationAttempts" />
+            <End Role="RegistrationAttemptAnswers" EntitySet="RegistrationAttemptAnswers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InitiativesModelStoreContainer" CdmEntityContainer="InitiativesEntities">
+          <EntitySetMapping Name="ChallengeMultipleChoices">
+            <EntityTypeMapping TypeName="InitiativesModel.ChallengeMultipleChoice">
+              <MappingFragment StoreEntitySet="ChallengeMultipleChoice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ExpectedAnswer" ColumnName="ExpectedAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChallengeMultipleChoiceItems">
+            <EntityTypeMapping TypeName="InitiativesModel.ChallengeMultipleChoiceItem">
+              <MappingFragment StoreEntitySet="ChallengeMultipleChoiceItems">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ChallengeMultipleChoiceId" ColumnName="ChallengeMultipleChoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Challenges">
+            <EntityTypeMapping TypeName="InitiativesModel.Challenge">
+              <MappingFragment StoreEntitySet="Challenges">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InitiativeId" ColumnName="InitiativeId" />
+                <ScalarProperty Name="ChallengeTypeId" ColumnName="ChallengeTypeId" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="ChallengeYesNoId" ColumnName="ChallengeYesNoId" />
+                <ScalarProperty Name="ChallengeMultipleChoiceId" ColumnName="ChallengeMultipleChoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChallengeTypes">
+            <EntityTypeMapping TypeName="InitiativesModel.ChallengeType">
+              <MappingFragment StoreEntitySet="ChallengeTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CorrelationId" ColumnName="CorrelationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChallengeYesNoes">
+            <EntityTypeMapping TypeName="InitiativesModel.ChallengeYesNo">
+              <MappingFragment StoreEntitySet="ChallengeYesNo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ExpectedAnswer" ColumnName="ExpectedAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Initiatives">
+            <EntityTypeMapping TypeName="InitiativesModel.Initiative">
+              <MappingFragment StoreEntitySet="Initiatives">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PassRate" ColumnName="PassRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationAttemptAnswers">
+            <EntityTypeMapping TypeName="InitiativesModel.RegistrationAttemptAnswer">
+              <MappingFragment StoreEntitySet="RegistrationAttemptAnswers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ChallengeId" ColumnName="ChallengeId" />
+                <ScalarProperty Name="RegistrationAttemptId" ColumnName="RegistrationAttemptId" />
+                <ScalarProperty Name="AnswerYesNo" ColumnName="AnswerYesNo" />
+                <ScalarProperty Name="AnswerMultipleChoice" ColumnName="AnswerMultipleChoice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationAttempts">
+            <EntityTypeMapping TypeName="InitiativesModel.RegistrationAttempt">
+              <MappingFragment StoreEntitySet="RegistrationAttempts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="HasSucceeded" ColumnName="HasSucceeded" />
+                <ScalarProperty Name="InitiativeId" ColumnName="InitiativeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
