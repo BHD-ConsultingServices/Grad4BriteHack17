@@ -21,7 +21,7 @@ Brite4Grad Hackathon 2017
 * A 3 tiered architecture (Presentation, BL & DAL) is used. Using the Providers (BL) or Adapters (DAL) contract you can have multiple people work on different layers once the contracts are established.
 * High Cohesion but Loose Coupling (Abstraction, contracting and d* omain seperation)
 
-<img alt="Architecture Overview" src="https://raw.githubusercontent.com/BHD-ConsultingServices/Grad4BriteHack17/master/Web/Content/Images/ConceptualArchitecture.png" width="500">
+<img alt="Architecture Overview" src="https://raw.githubusercontent.com/BHD-ConsultingServices/Grad4BriteHack17/master/Web/Content/Images/ConceptualArchitecture.png" width="700">
 
 Conceptual Architecture
 
