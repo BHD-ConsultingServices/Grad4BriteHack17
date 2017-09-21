@@ -7,7 +7,7 @@ namespace Hackathon.Contracts.Challenge
     {
         Challenge Get(Guid id);
 
-        Challenge Create(Challenge request);
+        Challenge Create(Guid initiativeId, Challenge request);
 
         Challenge Update(Guid challengeId, IChallengeUpdatable request);
     }
