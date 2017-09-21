@@ -21,15 +21,8 @@ Brite4Grad Hackathon 2017
 * A 3 tiered architecture (Presentation, BL & DAL) is used. Using the Providers (BL) or Adapters (DAL) contract you can have multiple people work on different layers once the contracts are established.
 * High Cohesion but Loose Coupling (Abstraction, contracting and d* omain seperation)
 
+_Conceptual Architecture Overview_
 <img alt="Architecture Overview" src="https://raw.githubusercontent.com/BHD-ConsultingServices/Grad4BriteHack17/master/Web/Content/Images/ConceptualArchitecture.png" width="700">
-
-Conceptual Architecture
-
-## Terminologies
-* Code isolation test strategies: Mocking, Stubbing and transaction rollback
-* DTO (Data Transfer Objects)
-* DI (Dependancy Injection)
-* Refactoring
 
 
 
