@@ -171,6 +171,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\brite4grad.png" />
+    <Content Include="Content\Images\ConceptualArchitecture.png" />
     <Content Include="Content\Slick\ajax-loader.gif" />
     <Content Include="Content\Slick\fonts\slick.svg" />
     <Content Include="Content\Slick\slick-theme.css" />
