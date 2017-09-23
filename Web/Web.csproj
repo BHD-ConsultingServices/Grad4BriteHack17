@@ -244,8 +244,8 @@
       <Project>{64690120-4dd3-47a6-bc82-d7f19a2b0811}</Project>
       <Name>BL.Providers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Contracts\Hackathon.Contracts.csproj">
-      <Project>{04d1decb-7cf8-4c4e-a2a4-4623f76cbe62}</Project>
+    <ProjectReference Include="..\Hackathon.Contracts\Hackathon.Contracts.csproj">
+      <Project>{f4e52951-c84b-4216-aa1d-f4bc7f31e041}</Project>
       <Name>Hackathon.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Hackatjon.StubData\Hackathon.StubData.csproj">
